@@ -5,4 +5,4 @@ Referências consultadas em 18/11/2026: printfoundry.studio (catálogo/encomenda
 
 Contato depende de configuração real. Sem backend ou upload; orçamento preparado localmente para envio pelo visitante. SEO absoluto depende de domínio configurado. Métricas são metas, não garantias.
 
-Validation exécutée : build production, ESLint, TypeScript, cinq tests Vitest et quatre tests Playwright réussis. Captures desktop 1440 px et mobile 375 px inspectées. La première exécution Playwright ciblait un autre service sur le port 3000; configuration corrigée pour lancer un serveur dédié sur 3107. Les labels du formulaire ont été stabilisés après validation. Lighthouse et audit WCAG exhaustif non exécutés.
+Validação executada: build de produção, ESLint, TypeScript, cinco testes Vitest e quatro testes Playwright aprovados. Capturas desktop (1440 px) e mobile (375 px) inspecionadas. A primeira execução Playwright encontrou outro serviço na porta 3000; configuração corrigida para servidor dedicado na porta 3107. Labels do formulário corrigidos após validação. Lighthouse e auditoria WCAG completa não executados.
