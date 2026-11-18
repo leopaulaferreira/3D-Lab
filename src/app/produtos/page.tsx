@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { canonical } from "@/lib/seo";
 import { products, categories, filterProducts } from "@/data/catalog";
 import { Heading, ProductGrid } from "@/components/ui";
@@ -20,7 +21,7 @@ export default async function Catalog({
   );
   const items = filterProducts(products, query);
   return (
-    <section>
+    <section className="catalog-page">
       <Heading
         title="Nossas criações"
         text="Formas, texturas e ideias para deixar o cotidiano mais seu."
@@ -28,8 +29,10 @@ export default async function Catalog({
       <p className="notice">
         Peças demonstrativas. Preços e disponibilidade sob consulta.
       </p>
-      <details className="filters" open>
-        <summary>Busca e filtros</summary>
+      <details className="filters">
+        <summary>
+          Busca e filtros <span>Categoria, cor e personalização</span>
+        </summary>
         <form action="/produtos">
           <label>
             Buscar
@@ -90,10 +93,16 @@ export default async function Catalog({
               <option value="recentes">Mais recentes</option>
             </select>
           </label>
-          <button className="button">Aplicar</button>
+          <div className="filter-actions">
+            <button className="button">Aplicar</button>
+            <Link href="/produtos">Limpar filtros</Link>
+          </div>
         </form>
       </details>
-      <p>{items.length} conceitos encontrados</p>
+      <div className="catalog-result">
+        <p>{items.length} conceitos encontrados</p>
+        <span>Feitos para inspirar. Personalizados para você.</span>
+      </div>
       <ProductGrid items={items} />
     </section>
   );

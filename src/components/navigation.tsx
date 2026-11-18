@@ -1,23 +1,42 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Search, Menu, X } from "lucide-react";
 import { brand, navigation } from "@/lib/config";
 export function Header() {
   const path = usePathname();
   const [open, setOpen] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const close = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && open) {
+        setOpen(false);
+        menuButton.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", close);
+    return () => document.removeEventListener("keydown", close);
+  }, [open]);
   return (
     <header>
       <Link className="logo" href="/">
         {brand.shortName}
         <span>3D</span>
       </Link>
-      <nav aria-label="Principal" className={open ? "open" : ""}>
+      <nav
+        id="primary-navigation"
+        aria-label="Principal"
+        className={open ? "open" : ""}
+      >
         {navigation.map(([label, url]) => (
           <Link
-            aria-current={path === url ? "page" : undefined}
+            aria-current={
+              path === url || (url !== "/" && path.startsWith(url + "/"))
+                ? "page"
+                : undefined
+            }
             onClick={() => setOpen(false)}
             key={url}
             href={url}
@@ -38,14 +57,16 @@ export function Header() {
         </Link>
         <button
           className="menu-toggle"
-          aria-label="Abrir menu"
+          ref={menuButton}
+          aria-controls="primary-navigation"
+          aria-label={open ? "Fechar menu" : "Abrir menu"}
           aria-expanded={open}
           onClick={() => setOpen(!open)}
         >
           {open ? <X /> : <Menu />}
         </button>
       </div>
-      <dialog ref={dialog}>
+      <dialog ref={dialog} aria-labelledby="search-title">
         <button
           className="close"
           aria-label="Fechar busca"
@@ -53,7 +74,7 @@ export function Header() {
         >
           <X />
         </button>
-        <h2>Encontre sua próxima ideia.</h2>
+        <h2 id="search-title">Encontre sua próxima ideia.</h2>
         <form action="/produtos" onSubmit={() => dialog.current?.close()}>
           <label htmlFor="search">Nome ou categoria</label>
           <input

@@ -21,6 +21,7 @@ export function ProductCard({ product: p }: { product: Product }) {
           alt={`Ilustração conceitual: ${p.name}`}
           width={600}
           height={600}
+          sizes="(max-width: 760px) 45vw, 23vw"
         />
         <span className="badge">Demonstração</span>
       </div>
@@ -28,9 +29,23 @@ export function ProductCard({ product: p }: { product: Product }) {
       <h3>{p.name}</h3>
       <div className="card-meta">
         <span>{p.price !== null ? money(p.price) : "Sob consulta"}</span>
-        <span className="swatches">● ● ●</span>
+        <span
+          className="swatches"
+          aria-label={`Cores propostas: ${p.colors.join(", ")}`}
+        >
+          {p.colors.map((color) => (
+            <span
+              key={color}
+              title={color}
+              className={`swatch swatch-${color.toLowerCase()}`}
+            />
+          ))}
+        </span>
       </div>
-      <small>Personalizável · Disponibilidade não confirmada</small>
+      <small className="product-status">
+        {p.customizable ? "Personalizável · " : ""}
+        {p.available ? "Disponível" : "Disponibilidade a confirmar"}
+      </small>
     </Link>
   );
 }

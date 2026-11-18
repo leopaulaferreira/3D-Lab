@@ -96,7 +96,7 @@ export const products: Product[] = names.map((name, i) => ({
   featured: i < 4,
   available: false,
   customizable: true,
-  images: [`/images/object-${i % 4}.svg`, `/images/object-${i % 4}.svg`],
+  images: [`/images/study-${i}.svg`],
   dimensions: "A definir no orçamento",
   weight: "A confirmar",
   material: "PLA proposto; sujeito a validação",
@@ -109,7 +109,7 @@ export const products: Product[] = names.map((name, i) => ({
 export const collections: Collection[] = categories.map((c, i) => ({
   ...c,
   slug: c.id,
-  coverImage: `/images/object-${i}.svg`,
+  coverImage: `/images/study-${[0, 5, 9, 3][i]}.svg`,
   productIds: products.filter((p) => p.categoryId === c.id).map((p) => p.id),
 }));
 export const projects: Project[] = [
@@ -135,12 +135,18 @@ export const repository = {
   projects: () => projects,
 };
 export function filterProducts(items: Product[], params: URLSearchParams) {
-  const q = (params.get("q") || "").toLocaleLowerCase("pt-BR");
+  const normalize = (value: string) =>
+    value
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLocaleLowerCase("pt-BR")
+      .trim();
+  const q = normalize(params.get("q") || "");
   const result = items.filter(
     (p) =>
-      (p.name + " " + categories.find((c) => c.id === p.categoryId)?.name)
-        .toLocaleLowerCase("pt-BR")
-        .includes(q) &&
+      normalize(
+        p.name + " " + categories.find((c) => c.id === p.categoryId)?.name,
+      ).includes(q) &&
       (!params.get("categoria") || p.categoryId === params.get("categoria")) &&
       (!params.get("cor") || p.colors.includes(params.get("cor")!)) &&
       (params.get("personalizavel") !== "sim" || p.customizable) &&

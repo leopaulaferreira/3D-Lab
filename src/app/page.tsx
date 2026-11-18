@@ -39,16 +39,19 @@ export default function Home() {
         </div>
         <div className="hero-art">
           <Image
-            src="/images/object-0.svg"
-            alt="Estudo ilustrativo de vaso com textura em camadas, não fabricado"
+            src="/images/editorial.svg"
+            alt="Composição ilustrativa de vaso, cachepô e escultura em tons naturais"
             fill
-            priority
+            preload
             sizes="(max-width: 760px) 100vw, 50vw"
           />
           <div className="art-label">
-            <span>FORMA, TEXTURA & IMAGINAÇÃO</span>
-            <strong>Um novo olhar para o cotidiano.</strong>
+            <span>ESTUDOS DE FORMA · LABLEO 3D</span>
+            <strong>Objetos para habitar a sua imaginação.</strong>
           </div>
+          <span className="art-disclaimer">
+            Ilustração conceitual · peças não fabricadas
+          </span>
         </div>
       </section>
       <div className="ribbon">
@@ -93,7 +96,15 @@ export default function Home() {
         <ProductGrid items={products.slice(0, 4)} />
       </section>
       <section className="manifesto">
-        <div className="line-art">✳</div>
+        <div className="process-art">
+          <Image
+            src="/images/study-0.svg"
+            alt="Estudo vetorial de forma e textura em camadas"
+            width={600}
+            height={600}
+          />
+          <span>Do desenho à matéria. Uma camada de cada vez.</span>
+        </div>
         <div>
           <span className="eyebrow">DESIGN ENCONTRA TECNOLOGIA</span>
           <h2>
@@ -136,7 +147,7 @@ export default function Home() {
       </section>
       <section>
         <div className="section-title">
-          <h2>Projetos que ganharam forma</h2>
+          <h2>Ideias em desenvolvimento</h2>
           <Link href="/projetos">Conhecer estudos ↗</Link>
         </div>
         <p>

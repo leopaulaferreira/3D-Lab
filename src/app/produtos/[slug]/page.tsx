@@ -1,3 +1,4 @@
+import { canonical } from "@/lib/seo";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { products, repository } from "@/data/catalog";
@@ -13,6 +14,7 @@ export async function generateMetadata({
 }) {
   const p = repository.product((await params).slug);
   return {
+    ...(p ? canonical(`/produtos/${p.slug}`) : {}),
     title: p?.name || "Produto não encontrado",
     description: p?.shortDescription,
   };
@@ -26,7 +28,7 @@ export default async function Product({
   if (!p) notFound();
   return (
     <section>
-      <nav className="breadcrumbs">
+      <nav className="breadcrumbs" aria-label="Caminho da página">
         <Link href="/produtos">Produtos</Link> / {p.name}
       </nav>
       <div className="detail">
@@ -34,7 +36,7 @@ export default async function Product({
         <div>
           <span className="eyebrow">CONCEITO DEMONSTRATIVO · {p.sku}</span>
           <h1>{p.name}</h1>
-          <h3>Sob consulta</h3>
+          <p className="product-price">Sob consulta</p>
           <p>{p.description}</p>
           <p className="notice">
             Disponibilidade não confirmada. Ilustração, não fotografia de

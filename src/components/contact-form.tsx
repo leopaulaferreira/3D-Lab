@@ -5,11 +5,14 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { brand, whatsappLink } from "@/lib/config";
 const schema = z.object({
-  name: z.string().min(2, "Informe seu nome"),
+  name: z.string().trim().min(2, "Informe seu nome"),
   email: z.email("Informe um e-mail válido"),
   phone: z.string(),
   type: z.string().min(1, "Selecione um tipo"),
-  description: z.string().min(15, "Conte um pouco mais (mínimo 15 caracteres)"),
+  description: z
+    .string()
+    .trim()
+    .min(15, "Conte um pouco mais (mínimo 15 caracteres)"),
   dimensions: z.string(),
   quantity: z.number().int().min(1, "Quantidade mínima: 1"),
   deadline: z.string(),
@@ -58,6 +61,15 @@ export function ContactForm({ product }: { product?: string }) {
             <input
               aria-label={label}
               type={type}
+              autoComplete={
+                key === "name"
+                  ? "name"
+                  : key === "email"
+                    ? "email"
+                    : key === "phone"
+                      ? "tel"
+                      : undefined
+              }
               {...register(
                 key,
                 key === "quantity" ? { valueAsNumber: true } : {},
@@ -76,6 +88,7 @@ export function ContactForm({ product }: { product?: string }) {
         <select
           aria-label="Tipo de projeto"
           {...register("type")}
+          aria-invalid={!!errors.type}
           aria-describedby="type-error"
         >
           <option value="">Selecione</option>
@@ -94,6 +107,7 @@ export function ContactForm({ product }: { product?: string }) {
           aria-label="Descrição"
           rows={5}
           {...register("description")}
+          aria-invalid={!!errors.description}
           aria-describedby="description-error"
         />
         <span className="error" id="description-error">
