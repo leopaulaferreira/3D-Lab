@@ -50,3 +50,9 @@ describe("catálogo", () => {
     );
   });
 });
+
+it("busca ignora acentos e espaços externos", () => {
+  expect(
+    filterProducts(products, new URLSearchParams("q= geometrico ")),
+  ).toHaveLength(1);
+});

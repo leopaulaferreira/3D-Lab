@@ -7,6 +7,7 @@ test("navegação, produto, busca e estado vazio", async ({ page }) => {
   await page
     .getByRole("link", { name: "Explorar produtos", exact: true })
     .click();
+  await page.getByText("Busca e filtros", { exact: false }).click();
   await page.getByLabel("Buscar", { exact: true }).fill("Twist");
   await page.getByRole("button", { name: "Aplicar" }).click();
   await expect(page.getByRole("heading", { name: "Vaso Twist" })).toBeVisible();
@@ -52,4 +53,42 @@ test("desktop", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/");
   await page.screenshot({ path: "artifacts/home-desktop.png", fullPage: true });
+});
+
+test("menu por teclado e busca acessível", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Abrir menu" }).click();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("button", { name: "Abrir menu" })).toBeFocused();
+  await page.getByRole("button", { name: "Buscar produtos" }).click();
+  await expect(
+    page.getByRole("dialog", { name: "Encontre sua próxima ideia." }),
+  ).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog")).not.toBeVisible();
+});
+test("rotas sem erros e layouts responsivos", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  for (const width of [320, 768, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    for (const route of [
+      "/",
+      "/produtos",
+      "/produtos/vaso-twist",
+      "/colecoes",
+      "/personalizados",
+    ]) {
+      const response = await page.goto(route);
+      expect(response?.status()).toBe(200);
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+        `${route} @ ${width}`,
+      ).toBeTruthy();
+    }
+  }
+  expect(errors).toEqual([]);
 });
