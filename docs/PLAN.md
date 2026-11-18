@@ -4,3 +4,5 @@ Next.js App Router, TypeScript strict, Tailwind, componentes server e pequenas i
 Referências consultadas em 18/11/2026: printfoundry.studio (catálogo/encomendas), 3devogue.com (coleções e orçamento), e3dprints.com/collections/3d-prints (busca e catálogo), printmorph.com (categorias e personalização), decorartor.com (navegação por tipos). Consulta estrutural textual, sem inspeção visual dessas páginas. Não reutilizamos ativos.
 
 Contato depende de configuração real. Sem backend ou upload; orçamento preparado localmente para envio pelo visitante. SEO absoluto depende de domínio configurado. Métricas são metas, não garantias.
+
+Validation exécutée : build production, ESLint, TypeScript, cinq tests Vitest et quatre tests Playwright réussis. Captures desktop 1440 px et mobile 375 px inspectées. La première exécution Playwright ciblait un autre service sur le port 3000; configuration corrigée pour lancer un serveur dédié sur 3107. Les labels du formulaire ont été stabilisés après validation. Lighthouse et audit WCAG exhaustif non exécutés.

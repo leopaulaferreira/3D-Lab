@@ -1,7 +1,70 @@
-'use client';
-import Link from 'next/link';
-import {usePathname} from 'next/navigation';
-import {useRef,useState} from 'react';
-import {Search,Menu,X} from 'lucide-react';
-import {brand,navigation} from '@/lib/config';
-export function Header(){const path=usePathname();const [open,setOpen]=useState(false);const dialog=useRef<HTMLDialogElement>(null);return <header><Link className="logo" href="/">{brand.shortName}<span>3D</span></Link><nav aria-label="Principal" className={open?'open':''}>{navigation.map(([label,url])=><Link aria-current={path===url?'page':undefined} onClick={()=>setOpen(false)} key={url} href={url}>{label}</Link>)}</nav><div className="header-actions"><button aria-label="Buscar produtos" onClick={()=>dialog.current?.showModal()}><Search size={20}/></button><Link className="button small" href="/personalizados">Solicitar orçamento</Link><button className="menu-toggle" aria-label="Abrir menu" aria-expanded={open} onClick={()=>setOpen(!open)}>{open?<X/>:<Menu/>}</button></div><dialog ref={dialog}><button className="close" aria-label="Fechar busca" onClick={()=>dialog.current?.close()}><X/></button><h2>Encontre sua próxima ideia.</h2><form action="/produtos" onSubmit={()=>dialog.current?.close()}><label htmlFor="search">Nome ou categoria</label><input id="search" name="q" placeholder="O que você procura?" autoFocus/><button className="button">Buscar</button></form></dialog></header>}
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useRef, useState } from "react";
+import { Search, Menu, X } from "lucide-react";
+import { brand, navigation } from "@/lib/config";
+export function Header() {
+  const path = usePathname();
+  const [open, setOpen] = useState(false);
+  const dialog = useRef<HTMLDialogElement>(null);
+  return (
+    <header>
+      <Link className="logo" href="/">
+        {brand.shortName}
+        <span>3D</span>
+      </Link>
+      <nav aria-label="Principal" className={open ? "open" : ""}>
+        {navigation.map(([label, url]) => (
+          <Link
+            aria-current={path === url ? "page" : undefined}
+            onClick={() => setOpen(false)}
+            key={url}
+            href={url}
+          >
+            {label}
+          </Link>
+        ))}
+      </nav>
+      <div className="header-actions">
+        <button
+          aria-label="Buscar produtos"
+          onClick={() => dialog.current?.showModal()}
+        >
+          <Search size={20} />
+        </button>
+        <Link className="button small" href="/personalizados">
+          Solicitar orçamento
+        </Link>
+        <button
+          className="menu-toggle"
+          aria-label="Abrir menu"
+          aria-expanded={open}
+          onClick={() => setOpen(!open)}
+        >
+          {open ? <X /> : <Menu />}
+        </button>
+      </div>
+      <dialog ref={dialog}>
+        <button
+          className="close"
+          aria-label="Fechar busca"
+          onClick={() => dialog.current?.close()}
+        >
+          <X />
+        </button>
+        <h2>Encontre sua próxima ideia.</h2>
+        <form action="/produtos" onSubmit={() => dialog.current?.close()}>
+          <label htmlFor="search">Nome ou categoria</label>
+          <input
+            id="search"
+            name="q"
+            placeholder="O que você procura?"
+            autoFocus
+          />
+          <button className="button">Buscar</button>
+        </form>
+      </dialog>
+    </header>
+  );
+}

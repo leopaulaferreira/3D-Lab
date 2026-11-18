@@ -1,4 +1,37 @@
-import {Heading,CTA,Process} from '@/components/ui';
-import {brand} from '@/lib/config';
-export const metadata={title:'Sobre o estúdio'};
-export default function Page(){return <><section className="prose"><Heading title="Curiosidade que vira criação." text={`${brand.name} · ${brand.description}`}/><h2>Um estúdio em construção.</h2><p>Nascemos da vontade de explorar o encontro entre design, tecnologia e objetos do cotidiano. Estamos começando em {brand.city}, desenvolvendo nossa linguagem e nosso primeiro catálogo.</p><h2>Camada por camada.</h2><p>O processo passa por ideia, modelagem, escolha do material, impressão e acabamento. A Bambu Lab A1 Combo permite explorar peças multicoloridas, sempre respeitando as limitações de cada projeto.</p><h2>Transparência desde o início.</h2><p>As peças e estudos deste site são demonstrativos. Fotografias, dimensões finais e disponibilidade serão publicadas após validação. Modelos de terceiros só poderão ser fabricados com licença comercial ou autorização adequada.</p></section><Process/><CTA/></>}
+import { canonical } from "@/lib/seo";
+import { Heading, CTA, Process } from "@/components/ui";
+import { brand } from "@/lib/config";
+export const metadata = { ...canonical("/sobre"), title: "Sobre o estúdio" };
+export default function Page() {
+  return (
+    <>
+      <section className="prose">
+        <Heading
+          title="Curiosidade que vira criação."
+          text={`${brand.name} · ${brand.description}`}
+        />
+        <h2>Um estúdio em construção.</h2>
+        <p>
+          Nascemos da vontade de explorar o encontro entre design, tecnologia e
+          objetos do cotidiano. Estamos começando em {brand.city}, desenvolvendo
+          nossa linguagem e nosso primeiro catálogo.
+        </p>
+        <h2>Camada por camada.</h2>
+        <p>
+          O processo passa por ideia, modelagem, escolha do material, impressão
+          e acabamento. A Bambu Lab A1 Combo permite explorar peças
+          multicoloridas, sempre respeitando as limitações de cada projeto.
+        </p>
+        <h2>Transparência desde o início.</h2>
+        <p>
+          As peças e estudos deste site são demonstrativos. Fotografias,
+          dimensões finais e disponibilidade serão publicadas após validação.
+          Modelos de terceiros só poderão ser fabricados com licença comercial
+          ou autorização adequada.
+        </p>
+      </section>
+      <Process />
+      <CTA />
+    </>
+  );
+}

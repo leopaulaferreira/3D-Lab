@@ -1,6 +1,170 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import {collections,products,projects} from '@/data/catalog';
-import {CTA,Process,ProductGrid} from '@/components/ui';
-import {brand} from '@/lib/config';
-export default function Home(){return <><section className="hero"><div><span className="eyebrow">DESIGN · CRIAÇÃO · IMPRESSÃO 3D</span><h1>Ideias que<br/>ganham <em>forma.</em></h1><p>Objetos criativos, decoração e peças personalizadas que transformam ideias em algo único.</p><div className="actions"><Link className="button" href="/produtos">Explorar produtos</Link><Link className="text-link" href="/personalizados">Criar algo personalizado ↗</Link></div><div className="hero-note"><span>Pequenos detalhes.<br/>Novas possibilidades.</span><span>{brand.city}</span></div></div><div className="hero-art"><Image src="/images/object-0.svg" alt="Estudo ilustrativo de vaso com textura em camadas, não fabricado" fill priority sizes="(max-width: 760px) 100vw, 50vw"/><div className="art-label"><span>FORMA, TEXTURA & IMAGINAÇÃO</span><strong>Um novo olhar para o cotidiano.</strong></div></div></section><div className="ribbon">Design autoral em desenvolvimento <span>✳</span> Personalização com intenção <span>✳</span> Feito camada por camada</div><section><div className="section-title"><div><span className="eyebrow">ENCONTRE SEU UNIVERSO</span><h2>Explore nossas coleções</h2></div><Link href="/colecoes">Ver todas ↗</Link></div><div className="collections">{collections.map(c=><Link href={`/colecoes/${c.slug}`} key={c.id}><Image src={c.coverImage} alt={`Ilustração da coleção ${c.name}`} width={600} height={600}/><h3>{c.name} ↗</h3><p>{c.description}</p></Link>)}</div></section><section><div className="section-title"><div><span className="eyebrow">UM POUCO DO QUE IMAGINAMOS</span><h2>Peças para descobrir</h2></div><Link href="/produtos">Explorar catálogo ↗</Link></div><p className="notice">Catálogo demonstrativo. Ilustrações conceituais, sem estoque ou fabricação confirmados.</p><ProductGrid items={products.slice(0,4)}/></section><section className="manifesto"><div className="line-art">✳</div><div><span className="eyebrow">DESIGN ENCONTRA TECNOLOGIA</span><h2>Da ideia<br/>ao objeto.</h2><p>Acreditamos nos objetos que trazem personalidade para a vida. Uma curva, uma textura, uma solução simples: tudo começa com um olhar curioso.</p><p>Com design, modelagem e impressão 3D, exploramos maneiras de transformar o digital em algo que você pode tocar.</p><Link className="text-link" href="/sobre">Conheça o estúdio ↗</Link></div></section><section className="custom"><span className="eyebrow">FEITO PARA A SUA IDEIA</span><h2>Você imagina.<br/>A gente cria.</h2><p>Tem uma ideia, uma medida específica ou um objeto que gostaria de personalizar? Conte o que você precisa.</p><div className="pills"><span>Objetos com nome</span><span>Peças sob medida</span><span>Projetos especiais</span></div><Link className="button" href="/personalizados">Solicitar projeto</Link></section><section><div className="section-title"><h2>Projetos que ganharam forma</h2><Link href="/projetos">Conhecer estudos ↗</Link></div><p>Nosso espaço de experimentação. Por enquanto, apresentamos conceitos demonstrativos.</p><Link className="project-feature" href={`/projetos/${projects[0].slug}`}><Image src={projects[0].images[0]} alt="Estudo ilustrativo de curvas" width={600} height={600}/><div><span className="eyebrow">CONCEITO DEMONSTRATIVO · PLA PROPOSTO</span><h2>{projects[0].title}</h2><p>{projects[0].summary}</p><span>Explorar o conceito ↗</span></div></Link></section><Process/><CTA/></>}
+import { canonical } from "@/lib/seo";
+export const metadata = canonical("/");
+import Link from "next/link";
+import Image from "next/image";
+import { collections, products, projects } from "@/data/catalog";
+import { CTA, Process, ProductGrid } from "@/components/ui";
+import { brand } from "@/lib/config";
+export default function Home() {
+  return (
+    <>
+      <section className="hero">
+        <div>
+          <span className="eyebrow">DESIGN · CRIAÇÃO · IMPRESSÃO 3D</span>
+          <h1>
+            Ideias que
+            <br />
+            ganham <em>forma.</em>
+          </h1>
+          <p>
+            Objetos criativos, decoração e peças personalizadas que transformam
+            ideias em algo único.
+          </p>
+          <div className="actions">
+            <Link className="button" href="/produtos">
+              Explorar produtos
+            </Link>
+            <Link className="text-link" href="/personalizados">
+              Criar algo personalizado ↗
+            </Link>
+          </div>
+          <div className="hero-note">
+            <span>
+              Pequenos detalhes.
+              <br />
+              Novas possibilidades.
+            </span>
+            <span>{brand.city}</span>
+          </div>
+        </div>
+        <div className="hero-art">
+          <Image
+            src="/images/object-0.svg"
+            alt="Estudo ilustrativo de vaso com textura em camadas, não fabricado"
+            fill
+            priority
+            sizes="(max-width: 760px) 100vw, 50vw"
+          />
+          <div className="art-label">
+            <span>FORMA, TEXTURA & IMAGINAÇÃO</span>
+            <strong>Um novo olhar para o cotidiano.</strong>
+          </div>
+        </div>
+      </section>
+      <div className="ribbon">
+        Design autoral em desenvolvimento <span>✳</span> Personalização com
+        intenção <span>✳</span> Feito camada por camada
+      </div>
+      <section>
+        <div className="section-title">
+          <div>
+            <span className="eyebrow">ENCONTRE SEU UNIVERSO</span>
+            <h2>Explore nossas coleções</h2>
+          </div>
+          <Link href="/colecoes">Ver todas ↗</Link>
+        </div>
+        <div className="collections">
+          {collections.map((c) => (
+            <Link href={`/colecoes/${c.slug}`} key={c.id}>
+              <Image
+                src={c.coverImage}
+                alt={`Ilustração da coleção ${c.name}`}
+                width={600}
+                height={600}
+              />
+              <h3>{c.name} ↗</h3>
+              <p>{c.description}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+      <section>
+        <div className="section-title">
+          <div>
+            <span className="eyebrow">UM POUCO DO QUE IMAGINAMOS</span>
+            <h2>Peças para descobrir</h2>
+          </div>
+          <Link href="/produtos">Explorar catálogo ↗</Link>
+        </div>
+        <p className="notice">
+          Catálogo demonstrativo. Ilustrações conceituais, sem estoque ou
+          fabricação confirmados.
+        </p>
+        <ProductGrid items={products.slice(0, 4)} />
+      </section>
+      <section className="manifesto">
+        <div className="line-art">✳</div>
+        <div>
+          <span className="eyebrow">DESIGN ENCONTRA TECNOLOGIA</span>
+          <h2>
+            Da ideia
+            <br />
+            ao objeto.
+          </h2>
+          <p>
+            Acreditamos nos objetos que trazem personalidade para a vida. Uma
+            curva, uma textura, uma solução simples: tudo começa com um olhar
+            curioso.
+          </p>
+          <p>
+            Com design, modelagem e impressão 3D, exploramos maneiras de
+            transformar o digital em algo que você pode tocar.
+          </p>
+          <Link className="text-link" href="/sobre">
+            Conheça o estúdio ↗
+          </Link>
+        </div>
+      </section>
+      <section className="custom">
+        <span className="eyebrow">FEITO PARA A SUA IDEIA</span>
+        <h2>
+          Você imagina.
+          <br />A gente cria.
+        </h2>
+        <p>
+          Tem uma ideia, uma medida específica ou um objeto que gostaria de
+          personalizar? Conte o que você precisa.
+        </p>
+        <div className="pills">
+          <span>Objetos com nome</span>
+          <span>Peças sob medida</span>
+          <span>Projetos especiais</span>
+        </div>
+        <Link className="button" href="/personalizados">
+          Solicitar projeto
+        </Link>
+      </section>
+      <section>
+        <div className="section-title">
+          <h2>Projetos que ganharam forma</h2>
+          <Link href="/projetos">Conhecer estudos ↗</Link>
+        </div>
+        <p>
+          Nosso espaço de experimentação. Por enquanto, apresentamos conceitos
+          demonstrativos.
+        </p>
+        <Link
+          className="project-feature"
+          href={`/projetos/${projects[0].slug}`}
+        >
+          <Image
+            src={projects[0].images[0]}
+            alt="Estudo ilustrativo de curvas"
+            width={600}
+            height={600}
+          />
+          <div>
+            <span className="eyebrow">
+              CONCEITO DEMONSTRATIVO · PLA PROPOSTO
+            </span>
+            <h2>{projects[0].title}</h2>
+            <p>{projects[0].summary}</p>
+            <span>Explorar o conceito ↗</span>
+          </div>
+        </Link>
+      </section>
+      <Process />
+      <CTA />
+    </>
+  );
+}
